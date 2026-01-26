@@ -12,6 +12,12 @@ return {
         "TelescopeResultsNormal",
         "TelescopePreviewNormal",
       },
+      exclude_groups = {
+        "TelescopeSelection",
+        "TelescopeSelectionCaret",
+        "CursorLine",
+        "Visual",
+      },
     })
   end,
 }
