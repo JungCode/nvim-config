@@ -22,10 +22,6 @@ return {
       inverse = true,
       contrast = "hard", -- hard, soft or empty
       palette_overrides = {},
-      overrides = {
-        TelescopeSelection = { bg = "#3c3836", fg = "#ebdbb2", bold = true },
-        TelescopeSelectionCaret = { fg = "#fb4934", bg = "#3c3836" },
-      },
       dim_inactive = false,
       transparent_mode = true,
     },
@@ -34,7 +30,25 @@ return {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
-    opts = {},
+    opts = {
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
+    },
+  },
+  {
+    "craftzdog/solarized-osaka.nvim",
+    lazy = true,
+    priority = 1000,
+    opts = {
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
+    },
   },
   {
     "LazyVim/LazyVim",
