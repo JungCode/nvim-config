@@ -3,7 +3,6 @@ return {
   build = "cargo build --release",
   opts = {
     completion = {
-      winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
       ghost_text = { enabled = false }, -- Disable ghost text
 
       list = {
