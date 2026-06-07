@@ -32,34 +32,23 @@ return {
         desc = "Open File Browser with the path of the current buffer",
       },
     },
-    config = function(_, opts)
-      opts = opts or {}
-      opts.defaults = opts.defaults or {}
-
-      local telescope = require("telescope")
-      local actions = require("telescope.actions")
-      local fb_actions = require("telescope").extensions.file_browser.actions
-
-      opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
+    opts = function(_, opts)
+      opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
         wrap_results = true,
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
         winblend = 0,
-        mappings = {
-          n = {},
-        },
+        mappings = { n = {} },
       })
-      opts.pickers = {
+      opts.pickers = vim.tbl_deep_extend("force", opts.pickers or {}, {
         diagnostics = {
           theme = "ivy",
           initial_mode = "normal",
-          layout_config = {
-            preview_cutoff = 9999,
-          },
+          layout_config = { preview_cutoff = 9999 },
         },
-      }
-      opts.extensions = {
+      })
+      opts.extensions = vim.tbl_deep_extend("force", opts.extensions or {}, {
         file_browser = {
           theme = "dropdown",
           -- disables netrw and use telescope-file-browser in its place
@@ -67,32 +56,39 @@ return {
           mappings = {
             -- your custom insert mode mappings
             ["n"] = {
-              -- your custom normal mode mappings
-              ["N"] = fb_actions.create,
-              ["h"] = fb_actions.goto_parent_dir,
-              ["l"] = actions.select_default,
+              ["N"] = function(prompt_bufnr)
+                require("telescope").extensions.file_browser.actions.create(prompt_bufnr)
+              end,
+              ["h"] = function(prompt_bufnr)
+                require("telescope").extensions.file_browser.actions.goto_parent_dir(prompt_bufnr)
+              end,
+              ["l"] = function(prompt_bufnr)
+                require("telescope.actions").select_default(prompt_bufnr)
+              end,
               ["/"] = function()
                 vim.cmd("startinsert")
               end,
               ["<C-u>"] = function(prompt_bufnr)
                 for i = 1, 10 do
-                  actions.move_selection_previous(prompt_bufnr)
+                  require("telescope.actions").move_selection_previous(prompt_bufnr)
                 end
               end,
               ["<C-d>"] = function(prompt_bufnr)
                 for i = 1, 10 do
-                  actions.move_selection_next(prompt_bufnr)
+                  require("telescope.actions").move_selection_next(prompt_bufnr)
                 end
               end,
-              ["<PageUp>"] = actions.preview_scrolling_up,
-              ["<PageDown>"] = actions.preview_scrolling_down,
+              ["<PageUp>"] = function(prompt_bufnr)
+                require("telescope.actions").preview_scrolling_up(prompt_bufnr)
+              end,
+              ["<PageDown>"] = function(prompt_bufnr)
+                require("telescope.actions").preview_scrolling_down(prompt_bufnr)
+              end,
             },
           },
         },
-      }
-      telescope.setup(opts)
-      require("telescope").load_extension("fzf")
-      require("telescope").load_extension("file_browser")
+      })
+      return opts
     end,
   },
 }

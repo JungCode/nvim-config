@@ -13,13 +13,13 @@ return {
       },
 
       menu = {
-        border = "rounded", -- Adds a border to the main menu
+        border = "rounded",
         winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
       },
 
       documentation = {
         window = {
-          border = "rounded", -- Adds a border to the documentation popup
+          border = "rounded",
           winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
         },
       },

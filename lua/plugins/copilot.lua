@@ -22,4 +22,14 @@ return {
       help = true,
     },
   },
+  init = function()
+    LazyVim.cmp.actions.ai_accept = LazyVim.cmp.actions.ai_accept
+      or function()
+        if require("copilot.suggestion").is_visible() then
+          LazyVim.create_undo()
+          require("copilot.suggestion").accept()
+          return true
+        end
+      end
+  end,
 }
